@@ -1,0 +1,57 @@
+pub struct Green;
+pub struct Yellow;
+pub struct Red;
+
+struct State<S> {
+    _inner: S
+}
+
+ impl State<Green> {
+    pub fn new() -> State<Green> {
+        State { _inner: Green{} }
+    }
+}
+
+impl State<Green> {
+    pub fn next(self) -> State<Yellow> {
+        State { _inner: Yellow {} }
+    }
+}
+
+
+impl State<Yellow> {
+    pub fn next(self) -> State<Red> {
+        State { _inner: Red {} }
+    }
+}
+
+impl State<Red> {
+    pub fn next(self) -> State<Green> {
+        State { _inner: Green {} }
+    }
+}
+
+
+
+fn main() {
+    let _state = State::new(); // 绿
+    let _state = _state.next(); // 黄
+    let _state = _state.next(); // 红
+    let _state = _state.next(); // 绿
+    //dbg!(state);
+} 
+
+
+// “如果枚举是描述状态的一种方式，而方法是描述行为的一种方式，是否能将两者结合起来成为一个状态机？”
+/* fn main() {
+    let mut state = State::new(); // 绿
+    let state = State::new(); // 绿灯
+    let state = state.next(); // 黄灯
+    let state = state.next(); // 红灯
+    allow_bikes(&state);
+    let state = state.next(); // 绿灯
+}
+
+fn allow_bikes(state: &State<Green>) {
+    todo!();
+} */
